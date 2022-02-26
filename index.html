@@ -6,12 +6,46 @@
 	<body>
 		<script>
 			function computerPlay(){
-				const options = ['Rock', 'Paper', 'Scissors'];
+				const options = ['rock', 'paper', 'scissors'];
 				let i  = Math.floor(Math.random() * 3);
 				let play = options[i].toString();
 				return play;
 		}
-		</script>
 
+			function playRound(playerSelection, computerSelection){
+				const player = playerSelection.toLowerCase();
+				
+				if(player === 'rock') {
+					if(computerSelection === 'rock') {
+						return "It's a tie!"
+					} else if (computerSelection === 'paper') {
+						return "You Lose! Paper beats Rock"
+					} else {
+						return "You Won! Rock beats Scissors"
+					}
+				} else if(player === 'paper') {
+					if(computerSelection === 'rock') {
+						return "You Won! Paper beats Rock"
+					} else if (computerSelection === 'paper') {
+						return "It's a Tie!"
+					} else {
+						return "You Lose! Scissors beats Paper"
+					}
+				} else if(player === 'scissors') {
+					if(computerSelection === 'rock') {
+						return "You Loss! Rock beats Scissors"
+					} else if(computerSelection === 'paper') {
+						return "You Won! Scissors beats paper"
+					} else {
+						return "It's a Tie!"
+					}
+				} else {
+					return 'Error: You should choose between "Rock", "Papers" or "Scissors".'
+				}
+			}
+
+			const computerSelection = computerPlay();
+			const playerSelection = 'rock';
+		</script>
 	</body>
 </html>
