@@ -2,9 +2,28 @@
 <html>
 	<head>
 		<title>Rock Paper Scissors</title>
+		<link rel="stylesheet" href="./styles.css">
 	</head>
 	<body>
+		<div id="container">
+			<h2>Pick an option: </h2>
+			<button id="btn-rock">ROCK</button>
+			<button id="btn-paper">PAPER</button>
+			<button id="btn-scissors">SCISSORS</button>
+			<div id="results">
+				<div id="scores">
+					<p id="playerScore"></p>
+					<p id="computerScore"></p>
+				</div>
+				<h2 id="finalResult"></h2>
+			</div>
+		</div>
+
+
 		<script>
+			let playerScore = 0;
+			let computerScore = 0;
+
 			function computerPlay(){
 				const options = ['rock', 'paper', 'scissors'];
 				let i  = Math.floor(Math.random() * 3);
@@ -18,6 +37,7 @@
 				if(player === 'rock') {
 					if(computerSelection === 'rock') {
 						return "Tie"
+
 					} else if (computerSelection === 'paper') {
 						return "Loss"
 					} else {
@@ -44,12 +64,9 @@
 				}
 			}
 
-			function game() {
-				let playerScore = 0;
-				let computerScore = 0;
-
-				for (let i = 0; i < 5; i++) {
-					const playerSelection = prompt("Choose between 'Rock', 'Paper' or 'Scissors': ");
+			function game(player) {
+				if (playerScore <5 && computerScore <5) {
+					const playerSelection = player;
 					const computerSelection = computerPlay();
 					console.log(playerSelection);
 					console.log(computerSelection);
@@ -57,26 +74,49 @@
 					console.log(round);
 					if (round === 'Win') {
 						playerScore += 1;
+						document.getElementById("finalResult").innerHTML = `You won this round, computer chose ${computerSelection}`;
+						document.getElementById("finalResult").style.color = 'green';
 					} else if (round === 'Loss') {
 						computerScore += 1;
-					} else {
-						continue;
+						document.getElementById("finalResult").innerHTML = `You lost this round, computer chose ${computerSelection}!`;
+						document.getElementById("finalResult").style.color = 'red';
+					} else if (round === 'Tie') {
+						document.getElementById("finalResult").innerHTML = `This round was Tie!`;
+						document.getElementById("finalResult").style.color = 'black';
+					}
+					document.getElementById("playerScore").innerHTML = `Your Score: ${playerScore}`;
+					document.getElementById("computerScore").innerHTML = `Computer Score: ${computerScore}`;
+					if (playerScore == 5 || computerScore == 5) {
+					if (playerScore > computerScore) {
+						document.getElementById("finalResult").innerHTML = `You Won! The score was ${playerScore} x ${computerScore}`;
+						document.getElementById("finalResult").style.color = 'green';
+					} else if ( computerScore > playerScore) {
+						document.getElementById("finalResult").innerHTML = `You Lose! The score was ${playerScore} x ${computerScore}`;
+						document.getElementById("finalResult").style.color = 'red';
 					}
 				}
-
-				console.log(playerScore);
-				console.log(computerScore);
-
-				if (playerScore > computerScore) {
-					console.log(`You Won! The score was ${playerScore} x ${computerScore}`);
-				} else if ( computerScore > playerScore) {
-					console.log(`You Lose! The score was ${playerScore} x ${computerScore}`);
-				} else {
-					console.log("It's a Tie!");
+				} else if (playerScore == 5 || computerScore == 5) {
+					if (playerScore > computerScore) {
+						document.getElementById("finalResult").innerHTML = `You Won! The score was ${playerScore} x ${computerScore}`;
+					} else if ( computerScore > playerScore) {
+						document.getElementById("finalResult").innerHTML = `You Lose! The score was ${playerScore} x ${computerScore}`;
+					}
 				}
 			}
 
-			game();
+			const rockBtn = document.querySelector('#btn-rock');
+			const paperBtn = document.getElementById("btn-paper");
+			const scissorsBtn = document.getElementById("btn-scissors");
+
+			rockBtn.addEventListener('click', () => {
+				game("rock")
+			});
+			paperBtn.addEventListener('click', () => {
+				game("paper")
+			});
+			scissorsBtn.addEventListener('click', () => {
+				game("scissors")
+			});
 		</script>
 	</body>
 </html>
